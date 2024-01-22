@@ -1,33 +1,44 @@
-import { useState } from "react";
-import reactLogo from "../assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { useRef } from "react";
+import styled from "styled-components";
+
+import { useValueStore } from "@/misc/store";
+import { TextView } from "./TextView";
+
+const InputBox = styled.div`
+  background: ${(p) => p.theme.colors.key.main};
+  padding: 8px;
+  text-align: center;
+`;
 
 function App() {
-  const [count, setCount] = useState(0);
+  // IMEのオンオフ状態のフラグ。日本語入力中には拡大表示に反映されないようにする。
+  const isIme = useRef(false);
+
+  const changeValue = useValueStore((state) => state.changeValue);
+
+  function handleChange(text: string) {
+    if (isIme.current) {
+      return; // 変換中は何もしない
+    }
+
+    // console.log(text);
+    changeValue(text);
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <InputBox>
+        <input
+          type="text"
+          onChange={(e) => handleChange(e.target.value)}
+          onCompositionStart={() => (isIme.current = true)}
+          onCompositionEnd={(e) => {
+            isIme.current = false;
+            handleChange((e.target as HTMLInputElement).value); // 入力確定時
+          }}
+        />
+      </InputBox>
+      <TextView />
     </>
   );
 }
