@@ -1,9 +1,15 @@
 import { useRef } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
-import { useValueStore } from "@/misc/store";
+import { useSettingStore, useValueStore } from "@/misc/store";
 import { TextView } from "./TextView";
+import { DARK_THEME, LIGHT_THEME } from "@/misc/theme";
 
+const Body = styled.div`
+  background: ${(p) => p.theme.colors.background.main};
+  color: ${(p) => p.theme.colors.text.main};
+  height: 100dvh;
+`;
 const InputBox = styled.div`
   background: ${(p) => p.theme.colors.key.main};
   padding: 8px;
@@ -11,6 +17,10 @@ const InputBox = styled.div`
 `;
 
 function App() {
+  // テーマを設定
+  const darkFlag = useSettingStore((st) => st.darkFlag);
+  const theme = darkFlag ? DARK_THEME : LIGHT_THEME;
+
   // IMEのオンオフ状態のフラグ。日本語入力中には拡大表示に反映されないようにする。
   const isIme = useRef(false);
 
@@ -21,25 +31,26 @@ function App() {
       return; // 変換中は何もしない
     }
 
-    // console.log(text);
     changeValue(text);
   }
 
   return (
-    <>
-      <InputBox>
-        <input
-          type="text"
-          onChange={(e) => handleChange(e.target.value)}
-          onCompositionStart={() => (isIme.current = true)}
-          onCompositionEnd={(e) => {
-            isIme.current = false;
-            handleChange((e.target as HTMLInputElement).value); // 入力確定時
-          }}
-        />
-      </InputBox>
-      <TextView />
-    </>
+    <ThemeProvider theme={theme}>
+      <Body>
+        <InputBox>
+          <input
+            type="text"
+            onChange={(e) => handleChange(e.target.value)}
+            onCompositionStart={() => (isIme.current = true)}
+            onCompositionEnd={(e) => {
+              isIme.current = false;
+              handleChange((e.target as HTMLInputElement).value); // 入力確定時
+            }}
+          />
+        </InputBox>
+        <TextView />
+      </Body>
+    </ThemeProvider>
   );
 }
 

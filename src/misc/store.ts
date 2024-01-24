@@ -13,3 +13,18 @@ export const useValueStore = create<ValueStore>((set) => ({
     }));
   },
 }));
+
+// --------------------------------------------------------------------------------
+
+type SettingStore = {
+  darkFlag: boolean;
+  setDarkFlag: (flag: boolean) => void;
+};
+
+export const useSettingStore = create<SettingStore>((set) => ({
+  darkFlag: false,
+
+  setDarkFlag(flag) {
+    set({ darkFlag: flag });
+  },
+}));
