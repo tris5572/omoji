@@ -12,9 +12,11 @@ export function TextView() {
   const text = useValueStore((state) => state.value);
 
   const array = [];
+  let i = 0;
 
-  for (const s of text) {
-    array.push(<CharView c={s} />);
+  for (const c of text) {
+    array.push(<CharView c={c} key={`${i}${c}`} />);
+    i++;
   }
 
   return <CharsWrapper>{array}</CharsWrapper>;
