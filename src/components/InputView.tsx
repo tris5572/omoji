@@ -3,13 +3,23 @@ import styled from "styled-components";
 
 import { useValueStore } from "@/misc/store";
 
-const InputBox = styled.div`
+const Box = styled.div`
   background: ${(p) => p.theme.colors.key.main};
   padding: 8px;
   text-align: center;
 `;
 
+/** 入力部 */
 export function InputView() {
+  return (
+    <Box>
+      <TextInput />
+    </Box>
+  );
+}
+
+/** テキスト入力ボックス */
+function TextInput() {
   // IMEのオンオフ状態のフラグ。日本語入力中には拡大表示に反映されないようにする。
   const isIme = useRef(false);
 
@@ -24,16 +34,14 @@ export function InputView() {
   }
 
   return (
-    <InputBox>
-      <input
-        type="text"
-        onChange={(e) => handleChange(e.target.value)}
-        onCompositionStart={() => (isIme.current = true)}
-        onCompositionEnd={(e) => {
-          isIme.current = false;
-          handleChange((e.target as HTMLInputElement).value); // 入力確定時
-        }}
-      />
-    </InputBox>
+    <input
+      type="text"
+      onChange={(e) => handleChange(e.target.value)}
+      onCompositionStart={() => (isIme.current = true)}
+      onCompositionEnd={(e) => {
+        isIme.current = false;
+        handleChange((e.target as HTMLInputElement).value); // 入力確定時
+      }}
+    />
   );
 }
