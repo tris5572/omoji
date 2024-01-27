@@ -8,7 +8,7 @@ import { InputView } from "./InputView";
 const Body = styled.div`
   background: ${(p) => p.theme.colors.background.main};
   color: ${(p) => p.theme.colors.text.main};
-  height: 100dvh;
+  min-height: 100vh;
 `;
 
 function App() {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useValueStore } from "@/misc/store";
+import { useSettingStore, useValueStore } from "@/misc/store";
 
 const CharsWrapper = styled.div`
   display: flex;
@@ -30,7 +30,6 @@ const CharBox = styled.div`
   border-radius: 8px;
 `;
 const Char = styled.div`
-  font-size: 120px;
   margin: 0;
   padding: 0;
   line-height: 100%;
@@ -44,9 +43,12 @@ const CodeValue = styled.span`
 `;
 
 function CharView({ c }: { c: string }) {
+  const sizeValue = useSettingStore((st) => st.fontSize);
+  const fontSize = `${sizeValue}vw`;
+
   return (
     <CharBox>
-      <Char>{c}</Char>
+      <Char style={{ fontSize }}>{c}</Char>
       <CodeTitle>Unicode: </CodeTitle>
       <CodeValue>U+{c.codePointAt(0)?.toString(16).toUpperCase()}</CodeValue>
     </CharBox>
