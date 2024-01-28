@@ -8,6 +8,10 @@ const Box = styled.div`
   background: ${(p) => p.theme.colors.key.main};
   padding: 8px;
   text-align: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
 `;
 
 /** 入力部 */
@@ -15,6 +19,7 @@ export function InputView() {
   return (
     <Box>
       <TextInput />
+      {"　"}
       <SizeInput />
     </Box>
   );
@@ -36,17 +41,15 @@ function TextInput() {
   }
 
   return (
-    <div>
-      <input
-        type="text"
-        onChange={(e) => handleChange(e.target.value)}
-        onCompositionStart={() => (isIme.current = true)}
-        onCompositionEnd={(e) => {
-          isIme.current = false;
-          handleChange((e.target as HTMLInputElement).value); // 入力確定時
-        }}
-      />
-    </div>
+    <input
+      type="text"
+      onChange={(e) => handleChange(e.target.value)}
+      onCompositionStart={() => (isIme.current = true)}
+      onCompositionEnd={(e) => {
+        isIme.current = false;
+        handleChange((e.target as HTMLInputElement).value); // 入力確定時
+      }}
+    />
   );
 }
 
@@ -57,15 +60,13 @@ function SizeInput() {
   ]);
 
   return (
-    <div>
-      <input
-        type="range"
-        id="fontSize"
-        min={MIN_FONT_SIZE}
-        max={MAX_FONT_SIZE}
-        value={fontSize}
-        onChange={(e) => setFontSize(Number(e.target.value))}
-      />
-    </div>
+    <input
+      type="range"
+      id="fontSize"
+      min={MIN_FONT_SIZE}
+      max={MAX_FONT_SIZE}
+      value={fontSize}
+      onChange={(e) => setFontSize(Number(e.target.value))}
+    />
   );
 }

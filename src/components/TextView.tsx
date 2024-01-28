@@ -6,6 +6,7 @@ const CharsWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  padding-top: 2rem;
 `;
 
 export function TextView() {
