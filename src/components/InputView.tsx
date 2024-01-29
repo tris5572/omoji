@@ -13,14 +13,24 @@ const Box = styled.div`
   top: 0;
   width: 100%;
 `;
+const Flex = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const Blank = styled.div``;
+const SliderBox = styled.div`
+  padding-top: 0.1rem;
+`;
 
 /** 入力部 */
 export function InputView() {
   return (
     <Box>
-      <TextInput />
-      {"　"}
-      <SizeInput />
+      <Flex>
+        <TextInput />
+        <Blank>{"　"}</Blank>
+        <SizeInput />
+      </Flex>
     </Box>
   );
 }
@@ -41,15 +51,17 @@ function TextInput() {
   }
 
   return (
-    <input
-      type="text"
-      onChange={(e) => handleChange(e.target.value)}
-      onCompositionStart={() => (isIme.current = true)}
-      onCompositionEnd={(e) => {
-        isIme.current = false;
-        handleChange((e.target as HTMLInputElement).value); // 入力確定時
-      }}
-    />
+    <div>
+      <input
+        type="text"
+        onChange={(e) => handleChange(e.target.value)}
+        onCompositionStart={() => (isIme.current = true)}
+        onCompositionEnd={(e) => {
+          isIme.current = false;
+          handleChange((e.target as HTMLInputElement).value); // 入力確定時
+        }}
+      />
+    </div>
   );
 }
 
@@ -60,13 +72,15 @@ function SizeInput() {
   ]);
 
   return (
-    <input
-      type="range"
-      id="fontSize"
-      min={MIN_FONT_SIZE}
-      max={MAX_FONT_SIZE}
-      value={fontSize}
-      onChange={(e) => setFontSize(Number(e.target.value))}
-    />
+    <SliderBox>
+      <input
+        type="range"
+        id="fontSize"
+        min={MIN_FONT_SIZE}
+        max={MAX_FONT_SIZE}
+        value={fontSize}
+        onChange={(e) => setFontSize(Number(e.target.value))}
+      />
+    </SliderBox>
   );
 }
