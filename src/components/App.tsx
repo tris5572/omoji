@@ -4,6 +4,7 @@ import { useSettingStore } from "@/misc/store";
 import { TextView } from "./TextView";
 import { DARK_THEME, LIGHT_THEME } from "@/misc/theme";
 import { InputView } from "./InputView";
+import { SettingView } from "./SettingView";
 
 const Body = styled.div`
   background: ${(p) => p.theme.colors.background.main};
@@ -16,8 +17,11 @@ function App() {
   const darkFlag = useSettingStore((st) => st.darkFlag);
   const theme = darkFlag ? DARK_THEME : LIGHT_THEME;
 
+  const settingFlag = useSettingStore((st) => st.settingViewOpenFlag);
+
   return (
     <ThemeProvider theme={theme}>
+      {settingFlag && <SettingView />}
       <Body>
         <InputView />
         <TextView />

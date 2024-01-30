@@ -18,19 +18,39 @@ export const useValueStore = create<ValueStore>((set) => ({
 // --------------------------------------------------------------------------------
 
 type SettingStore = {
+  settingViewOpenFlag: boolean;
+  openSettingView: () => void;
+  closeSettingView: () => void;
+
   darkFlag: boolean;
   setDarkFlag: (flag: boolean) => void;
+
+  unicodeFlag: boolean;
+  setUnicodeFlag: (flag: boolean) => void;
 
   fontSize: number;
   setFontSize: (size: number) => void;
 };
 
 export const useSettingStore = create<SettingStore>((set) => ({
+  settingViewOpenFlag: false,
+  openSettingView() {
+    set({ settingViewOpenFlag: true });
+  },
+  closeSettingView() {
+    set({ settingViewOpenFlag: false });
+  },
+
   darkFlag: false,
   fontSize: DEFAULT_FONT_SIZE,
 
   setDarkFlag(flag) {
     set({ darkFlag: flag });
+  },
+
+  unicodeFlag: true,
+  setUnicodeFlag(flag) {
+    set({ unicodeFlag: flag });
   },
 
   setFontSize(size) {
