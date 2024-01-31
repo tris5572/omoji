@@ -46,12 +46,15 @@ const CodeValue = styled.span`
 function CharView({ c }: { c: string }) {
   const sizeValue = useSettingStore((st) => st.fontSize);
   const fontSize = `${sizeValue}vw`;
+  const unicodeFlag = useSettingStore((st) => st.unicodeFlag);
 
   return (
     <CharBox>
       <Char style={{ fontSize }}>{c}</Char>
       <CodeTitle>Unicode: </CodeTitle>
-      <CodeValue>U+{c.codePointAt(0)?.toString(16).toUpperCase()}</CodeValue>
+      {unicodeFlag && (
+        <CodeValue>U+{c.codePointAt(0)?.toString(16).toUpperCase()}</CodeValue>
+      )}
     </CharBox>
   );
 }
