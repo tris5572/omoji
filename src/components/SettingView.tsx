@@ -9,6 +9,7 @@ const Transparent = styled.div`
   height: 100vh;
   background: hsla(0, 0%, 100%, 50%);
   z-index: 10000;
+  cursor: pointer;
 `;
 const Box = styled.div`
   background: ${(p) => p.theme.colors.key.dark};
@@ -29,8 +30,10 @@ const CheckboxLabel = styled.label`
 `;
 
 export function SettingView() {
+  const closeSettingView = useSettingStore((st) => st.closeSettingView);
+
   return (
-    <Transparent>
+    <Transparent onClick={closeSettingView}>
       <Box>
         <Title>表示設定</Title>
         <DarkMode />
