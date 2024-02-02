@@ -20,6 +20,7 @@ const Box = styled.div`
   transform: translate(-50%, -50%);
   z-index: 10001;
   padding: 1rem;
+  cursor: default;
 `;
 const Title = styled.div`
   font-weight: bold;
@@ -32,9 +33,10 @@ const CheckboxLabel = styled.label`
 export function SettingView() {
   const closeSettingView = useSettingStore((st) => st.closeSettingView);
 
+  // stopPropagation() により、親要素へクリックイベントが伝搬しないようにする
   return (
     <Transparent onClick={closeSettingView}>
-      <Box>
+      <Box onClick={(e) => e.stopPropagation()}>
         <Title>表示設定</Title>
         <DarkMode />
         <Unicode />
