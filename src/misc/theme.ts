@@ -10,6 +10,7 @@ export const LIGHT_THEME = {
     },
     background: {
       main: "hsl(205, 10%, 96%)",
+      transparent: "hsla(205, 10%, 96%, 80%)",
     },
   },
 };
@@ -26,6 +27,7 @@ export const DARK_THEME = {
     },
     background: {
       main: "hsl(205, 10%, 10%)",
+      transparent: "hsla(205, 10%, 10%, 80%)",
     },
   },
 };
