@@ -51,9 +51,13 @@ function CharView({ c }: { c: string }) {
   return (
     <CharBox>
       <Char style={{ fontSize }}>{c}</Char>
-      <CodeTitle>Unicode: </CodeTitle>
       {unicodeFlag && (
-        <CodeValue>U+{c.codePointAt(0)?.toString(16).toUpperCase()}</CodeValue>
+        <div>
+          <CodeTitle>Unicode: </CodeTitle>
+          <CodeValue>
+            U+{c.codePointAt(0)?.toString(16).toUpperCase()}
+          </CodeValue>
+        </div>
       )}
     </CharBox>
   );
