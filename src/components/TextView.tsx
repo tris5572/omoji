@@ -29,6 +29,7 @@ const CharBox = styled.div`
   padding: 1rem;
   border: 1px solid gray;
   border-radius: 8px;
+  overflow: hidden;
 `;
 const Char = styled.div`
   margin: 0;
